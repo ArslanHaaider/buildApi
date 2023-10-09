@@ -64,18 +64,15 @@ const createResourceSchema = Joi.object({
     getAllResources: () => {
       return randomBooks;
     },
-    createResource: (req, res) => {
+    createResource: (req,res) => {
       // Validate the incoming data against the schema
       const { error, value } = createResourceSchema.validate(req.body);
-
-      if (error) {
-          // Return a 400 Bad Request response with validation error details
-          return res.status(400).send(error.details);
+      if(error){
+        res.send("INvalid request body")
+      }else{
+        randomBooks.push(value);
+        res.send(randomBooks);
       }
-
-      // If validation passes, proceed to create the resource
-      const data = services.createResource(value);
-      res.status(201).send(data); // 201 status code for resource creation
   },
   updateResource: (req, res) => {
     // Validate the incoming data against the schema

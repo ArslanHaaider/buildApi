@@ -12,8 +12,9 @@ module.exports = {
         res.send(data);
     },
     createResource: (req, res) => {
-        const data = services.createResource(req.body);
-        res.status(201).send(data); // 201 status code for resource creation
+        const data = services.createResource(req,res);
+        res.send(data); // 201 status code for resource creation
+        
     },
     updateResource: (req, res) => {
         const data = services.updateResource(req.params.id, req.body);
@@ -22,6 +23,7 @@ module.exports = {
         } else {
             res.status(404).send("Resource not found");
         }
+
     },
     deleteResource: (req, res) => {
         const data = services.deleteResource(req.params.id);
