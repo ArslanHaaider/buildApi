@@ -84,11 +84,18 @@ const createResourceSchema = Joi.object({
     }
 
     // If validation passes, proceed to update the resource
-    const data = services.updateResource(req.params.id, value);
-    if (data) {
-        res.send(data);
-    } else {
-        res.status(404).send("Resource not found");
+    else{
+      const data = randomBooks.find((c) => {
+        if(c.id == req.params.id){
+          c.author = req.body.data;
+          c.pages = req.body.data;
+          c.title  = req.body.title;
+          res.send(c)
+        }
+        else{
+          res.send('not found')
+        }
+      });
     }
   },
   deleteResource: (id) => {
