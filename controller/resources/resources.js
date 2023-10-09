@@ -18,11 +18,7 @@ module.exports = {
     },
     updateResource: (req, res) => {
         const data = services.updateResource(req.params.id, req.body);
-        if (data) {
-            res.send(data);
-        } else {
-            res.status(404).send("Resource not found");
-        }
+        res.send(data)
 
     },
     deleteResource: (req, res) => {

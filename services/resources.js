@@ -74,28 +74,29 @@ const createResourceSchema = Joi.object({
         res.send(randomBooks);
       }
   },
-  updateResource: (req, res) => {
+  
+  updateResource: (id,datas) => {
     // Validate the incoming data against the schema
-    const { error, value } = updateResourceSchema.validate(req.body);
+    const { error, value } = updateResourceSchema.validate(datas);
 
     if (error) {
         // Return a 400 Bad Request response with validation error details
-        return res.status(400).send(error.details);
+        return error;
     }
 
     // If validation passes, proceed to update the resource
     else{
-      const data = randomBooks.find((c) => {
-        if(c.id == req.params.id){
-          c.author = req.body.data;
-          c.pages = req.body.data;
-          c.title  = req.body.title;
-          res.send(c)
+      const data = randomBooks.find((c) => c.id == id);
+      if(data){
+        data.author = datas.author;
+          console.log("enterd modification");
+          data.pages = datas.pages;
+          data.title  = datas.title;
+          return data;
+      }
+      else{
+          return "not found"
         }
-        else{
-          res.send('not found')
-        }
-      });
     }
   },
   deleteResource: (id) => {
